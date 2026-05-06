@@ -1,3 +1,4 @@
+#pragma once
 extern int WIN_W;
 extern int WIN_H;
 
@@ -19,9 +20,9 @@ const float ENEMY_W            = 40.f;
 const float ENEMY_H            = 70.f;
 const float INITIAL_ENEMY_SPD  = 200.f;
 const float SPEED_INCREMENT    = 10.f;
-const float SPAWN_INTERVAL     = 1.2f;
+const float SPAWN_INTERVAL     = 0.6f;
 const float SPEED_BOOST_INTERVAL = 30.f;
 const float SPEED_TIME_BOOST     = 50.f;
-const float MAX_ENEMY_SPD        = 600.f;
+const float MAX_ENEMY_SPD        = 1200.f;
 
 enum class GameState { Loading, Playing, GameOver };

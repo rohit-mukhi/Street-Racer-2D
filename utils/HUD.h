@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include "Constants.h"
@@ -30,10 +31,11 @@ struct HUD
         subText.setFillColor(Color::White);
     }
 
-    void updateScore(int score)
+    void updateScore(int score, float speed)
     {
         std::ostringstream ss;
-        ss << "Score: " << score;
+        int displaySpeed = (int)(50.f + (speed - INITIAL_ENEMY_SPD) / (MAX_ENEMY_SPD - INITIAL_ENEMY_SPD) * (300.f - 50.f));
+        ss << "Score: " << score << "\nSpeed: " << displaySpeed << " km/h";
         scoreText.setString(ss.str());
     }
 

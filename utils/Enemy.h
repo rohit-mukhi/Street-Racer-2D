@@ -82,26 +82,31 @@ struct EnemyManager
 private:
     void spawn()
     {
-        int lane   = rand() % NUM_LANES;
-        int texIdx = rand() % (int)textures.size();
+        int lane1  = rand() % NUM_LANES;
+        int lane2  = (lane1 + 1 + rand() % (NUM_LANES - 1)) % NUM_LANES;
+        int lanes[2] = { lane1, lane2 };
 
-        Enemy e;
-        e.speed = enemySpeed;
-        e.sprite.setTexture(textures[texIdx]);
-        fitSprite(e.sprite, ENEMY_W, ENEMY_H);
-
-        if (texIdx == 1)
+        for (int i = 0; i < 2; ++i)
         {
-            e.sprite.setOrigin(ENEMY_W / 2.f, ENEMY_H / 2.f);
-            e.sprite.setRotation(180.f);
-            e.sprite.setPosition(laneCenterX(lane) + ENEMY_W / 2.f, -ENEMY_H / 2.f);
-        }
-        else
-        {
-            e.sprite.setPosition(laneCenterX(lane), -ENEMY_H);
-        }
+            int texIdx = rand() % (int)textures.size();
+            Enemy e;
+            e.speed = enemySpeed;
+            e.sprite.setTexture(textures[texIdx]);
+            fitSprite(e.sprite, ENEMY_W, ENEMY_H);
 
-        enemies.push_back(e);
-        enemySpeed = std::min(enemySpeed + SPEED_INCREMENT, MAX_ENEMY_SPD);
+            if (texIdx == 1)
+            {
+                e.sprite.setOrigin(ENEMY_W / 2.f, ENEMY_H / 2.f);
+                e.sprite.setRotation(180.f);
+                e.sprite.setPosition(laneCenterX(lanes[i]) + ENEMY_W / 2.f, -ENEMY_H / 2.f);
+            }
+            else
+            {
+                e.sprite.setPosition(laneCenterX(lanes[i]), -ENEMY_H);
+            }
+
+            enemies.push_back(e);
+            enemySpeed = std::min(enemySpeed + SPEED_INCREMENT, MAX_ENEMY_SPD);
+        }
     }
 };

@@ -94,7 +94,7 @@ int main()
                 audio.stop();
             }
 
-            hud.updateScore(score);
+            hud.updateScore(score, enemies.enemySpeed);
         }
 
         window.clear();

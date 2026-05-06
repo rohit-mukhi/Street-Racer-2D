@@ -3,9 +3,11 @@
 #include <vector>
 #include <string>
 
+using namespace sf;
+
 struct Audio
 {
-    sf::Music music;
+    Music music;
     std::vector<std::string> tracks;
     int currentIndex = 0;
 
@@ -25,7 +27,6 @@ struct Audio
     void stop()  { music.stop();  }
     void pause() { music.pause(); }
 
-    // Advance to the next track and play it from the start
     void nextTrack()
     {
         currentIndex = (currentIndex + 1) % (int)tracks.size();

@@ -3,10 +3,11 @@
 #include <vector>
 #include "Constants.h"
 
-// ── Scrolling dashed lane divider ─────────────────────────────────────────────
+using namespace sf;
+
 struct DashColumn
 {
-    std::vector<sf::RectangleShape> dashes;
+    std::vector<RectangleShape> dashes;
     float offset = 0.f;
 
     void init(float x)
@@ -17,7 +18,7 @@ struct DashColumn
         for (int i = 0; i < count; ++i)
         {
             dashes[i].setSize({DASH_W, DASH_H});
-            dashes[i].setFillColor(sf::Color(200, 200, 200));
+            dashes[i].setFillColor(Color(200, 200, 200));
             dashes[i].setPosition(x - DASH_W / 2.f, i * period);
         }
     }
@@ -32,27 +33,26 @@ struct DashColumn
                                   i * period + offset - period);
     }
 
-    void draw(sf::RenderWindow &window)
+    void draw(RenderWindow &window)
     {
         for (auto &d : dashes) window.draw(d);
     }
 };
 
-// ── Road: grass background + asphalt + lane dividers ─────────────────────────
 struct Road
 {
-    sf::RectangleShape grass;
-    sf::RectangleShape asphalt;
+    RectangleShape grass;
+    RectangleShape asphalt;
     std::vector<DashColumn> dividers;
 
     Road()
     {
         grass.setSize({(float)WIN_W, (float)WIN_H});
-        grass.setFillColor(sf::Color(34, 100, 34));
+        grass.setFillColor(Color(34, 100, 34));
 
         asphalt.setSize({ROAD_W, (float)WIN_H});
         asphalt.setPosition(ROAD_LEFT, 0);
-        asphalt.setFillColor(sf::Color(50, 50, 50));
+        asphalt.setFillColor(Color(50, 50, 50));
 
         dividers.resize(NUM_LANES - 1);
         for (int i = 0; i < NUM_LANES - 1; ++i)
@@ -64,7 +64,7 @@ struct Road
         for (auto &d : dividers) d.update(dt, speed);
     }
 
-    void draw(sf::RenderWindow &window)
+    void draw(RenderWindow &window)
     {
         window.draw(grass);
         window.draw(asphalt);

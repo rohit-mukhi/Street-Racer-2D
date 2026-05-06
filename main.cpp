@@ -9,7 +9,8 @@
 #include "utils/HUD.h"
 #include "utils/Audio.h"
 
-// Definitions of extern variables
+using namespace sf;
+
 int WIN_W;
 int WIN_H;
 float ROAD_LEFT;
@@ -19,13 +20,13 @@ int main()
 {
     srand((unsigned)time(nullptr));
 
-    sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+    VideoMode desktop = VideoMode::getDesktopMode();
     WIN_W      = desktop.width;
     WIN_H      = desktop.height;
     ROAD_LEFT  = (WIN_W - ROAD_W) / 2.f;
     ROAD_RIGHT = ROAD_LEFT + ROAD_W;
 
-    sf::RenderWindow window(desktop, "Street Racer 2D", sf::Style::Fullscreen);
+    RenderWindow window(desktop, "Street Racer 2D", Style::Fullscreen);
     window.setFramerateLimit(60);
 
     LoadingScreen loadingScreen;
@@ -38,42 +39,37 @@ int main()
     audio.play();
 
     GameState state = GameState::Loading;
-    int  score = 0;
+    int score = 0;
 
-    sf::Clock clock;
+    Clock clock;
 
     while (window.isOpen())
     {
         float dt = clock.restart().asSeconds();
 
-        // ── Events ───────────────────────────────────────────────────────────
-        sf::Event event;
+        Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == Event::Closed)
                 window.close();
 
-            if (event.type == sf::Event::KeyPressed)
+            if (event.type == Event::KeyPressed)
             {
-                // Exit fullscreen
-                if (event.key.code == sf::Keyboard::Escape)
+                if (event.key.code == Keyboard::Escape)
                     window.close();
 
-                // Cycle background music
-                if (event.key.code == sf::Keyboard::T)
+                if (event.key.code == Keyboard::T)
                     audio.nextTrack();
 
-                // Loading → Playing
                 if (state == GameState::Loading &&
-                    event.key.code == sf::Keyboard::Enter)
+                    event.key.code == Keyboard::Enter)
                 {
                     state = GameState::Playing;
                     clock.restart();
                 }
 
-                // Game Over → restart
                 if (state == GameState::GameOver &&
-                    event.key.code == sf::Keyboard::R)
+                    event.key.code == Keyboard::R)
                 {
                     score  = 0;
                     state  = GameState::Playing;
@@ -85,7 +81,6 @@ int main()
             }
         }
 
-        // ── Update ───────────────────────────────────────────────────────────
         if (state == GameState::Playing)
         {
             player.update(dt);
@@ -102,7 +97,6 @@ int main()
             hud.updateScore(score);
         }
 
-        // ── Draw ─────────────────────────────────────────────────────────────
         window.clear();
 
         if (state == GameState::Loading)

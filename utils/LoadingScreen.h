@@ -1,4 +1,3 @@
-#pragma once
 #include <SFML/Graphics.hpp>
 #include "Constants.h"
 
@@ -20,9 +19,7 @@ struct LoadingScreen
         Vector2u texSize = bgTexture.getSize();
         bgSprite.setScale((float)WIN_W / texSize.x, (float)WIN_H / texSize.y);
 
-        if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
-            if (!font.loadFromFile("/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"))
-                font.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSansBold.ttf");
+        font.loadFromFile("Assets/ttt/TTT-Bold.otf");
 
         titleText.setFont(font);
         titleText.setString("Street Racer 2D");

@@ -1,4 +1,3 @@
-#pragma once
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include "Constants.h"
@@ -14,9 +13,7 @@ struct HUD
 
     HUD()
     {
-        if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
-            if (!font.loadFromFile("/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"))
-                font.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSansBold.ttf");
+        font.loadFromFile("Assets/ttt/TTT-Bold.otf");
 
         scoreText.setFont(font);
         scoreText.setCharacterSize(24);

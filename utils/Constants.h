@@ -1,5 +1,3 @@
-#pragma once
-
 extern int WIN_W;
 extern int WIN_H;
 

@@ -54,7 +54,7 @@ struct EnemyManager
         }
 
         for (auto &e : enemies)
-            e.sprite.move(0, e.speed * dt);
+            e.sprite.setPosition(e.sprite.getPosition().x, e.sprite.getPosition().y + e.speed * dt);
 
         int before = (int)enemies.size();
         enemies.erase(std::remove_if(enemies.begin(), enemies.end(),

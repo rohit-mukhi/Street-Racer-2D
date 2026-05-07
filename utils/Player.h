@@ -28,11 +28,12 @@ struct Player
     void update(float dt)
     {
         float px = sprite.getPosition().x;
+        float py = sprite.getPosition().y;
         if (Keyboard::isKeyPressed(Keyboard::Left))  px -= PLAYER_SPD * dt;
         if (Keyboard::isKeyPressed(Keyboard::Right)) px += PLAYER_SPD * dt;
         px = std::max(px, ROAD_LEFT  + PLAYER_W / 2.f);
         px = std::min(px, ROAD_RIGHT - PLAYER_W / 2.f);
-        sprite.setPosition(px, sprite.getPosition().y);
+        sprite.setPosition(px, py);
     }
 
     void draw(RenderWindow &window)
